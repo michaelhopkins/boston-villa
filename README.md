@@ -13,10 +13,7 @@ as plain text with no way to navigate to them.
 
 `index.html` has no build step and no dependencies. Fixture and standings data lives
 in `data.json` beside it and is fetched same-origin at load; the page never contacts
-the league's servers.
-
-The page makes no requests to the league's servers. Club logos are deliberately not
-loaded for the same reason.
+the league's servers. Club logos are deliberately not loaded for the same reason.
 
 Two things adapt on their own:
 
