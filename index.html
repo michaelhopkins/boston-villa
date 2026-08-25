@@ -1,0 +1,526 @@
+<title>Boston Villa Matchday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap">
+
+<style>
+  :root{
+    --ground:#F5F7FB;
+    --surface:#FFFFFF;
+    --surface-sunk:#EEF2F8;
+    --ink:#131820;
+    --ink-soft:#5B6675;
+    --ink-faint:#8C97A6;
+    --line:#DCE3ED;
+    --line-strong:#C3CDDC;
+    --cobalt:#1B4DB1;
+    --cobalt-ink:#1B4DB1;
+    --cobalt-wash:#E7EEFB;
+    --ochre:#A25E06;
+    --ochre-wash:#FBF0DE;
+    --shadow:0 1px 2px rgba(19,24,32,.06),0 8px 24px -12px rgba(19,24,32,.18);
+    --radius:10px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0D1117;
+      --surface:#161C25;
+      --surface-sunk:#111721;
+      --ink:#E6ECF4;
+      --ink-soft:#96A2B3;
+      --ink-faint:#6B7788;
+      --line:#242D3A;
+      --line-strong:#33404F;
+      --cobalt:#7BA5F2;
+      --cobalt-ink:#9BBCF7;
+      --cobalt-wash:#16243C;
+      --ochre:#E0A44A;
+      --ochre-wash:#2B2114;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0D1117;
+    --surface:#161C25;
+    --surface-sunk:#111721;
+    --ink:#E6ECF4;
+    --ink-soft:#96A2B3;
+    --ink-faint:#6B7788;
+    --line:#242D3A;
+    --line-strong:#33404F;
+    --cobalt:#7BA5F2;
+    --cobalt-ink:#9BBCF7;
+    --cobalt-wash:#16243C;
+    --ochre:#E0A44A;
+    --ochre-wash:#2B2114;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.7);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--ground);
+    color:var(--ink);
+    font-family:"Barlow","Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:58rem;margin:0 auto;padding:2rem 1.25rem 4rem;display:flex;flex-direction:column;gap:2.25rem}
+  /* Sections are reordered at runtime (1–3); these stay pinned at either end. */
+  .mast{order:0}
+  .callout{order:8}
+  footer{order:9}
+
+  a{color:var(--cobalt-ink)}
+  :focus-visible{outline:2px solid var(--cobalt);outline-offset:2px;border-radius:3px}
+
+  /* Club names lead off-site to the league's own page. */
+  .club-link{color:inherit;text-decoration:none;border-bottom:1px solid var(--line-strong)}
+  .club-link:hover{color:var(--cobalt-ink);border-bottom-color:currentColor}
+  .opp .club-link{border-bottom-width:2px}
+
+  .eyebrow{
+    font-family:"Barlow Condensed","Helvetica Neue",Arial,sans-serif;
+    font-weight:600;font-size:.8125rem;text-transform:uppercase;letter-spacing:.11em;
+    color:var(--ink-faint);
+  }
+
+  /* ---- masthead ---- */
+  .mast{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1rem;
+        padding-bottom:1.25rem;border-bottom:2px solid var(--ink)}
+  .mast h1{
+    font-family:"Barlow Condensed","Helvetica Neue",Arial,sans-serif;
+    font-weight:700;font-size:clamp(2.1rem,6vw,3rem);line-height:.95;margin:0;
+    letter-spacing:-.01em;text-wrap:balance;
+  }
+  .mast .meta{margin-left:auto;text-align:right;line-height:1.35}
+  .mast .meta strong{display:block;font-family:"Barlow Condensed",sans-serif;font-size:1.05rem;font-weight:600;color:var(--ink)}
+  .mast .meta span{font-size:.875rem;color:var(--ink-soft)}
+
+  /* ---- next match ---- */
+  .next{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);overflow:hidden;
+  }
+  .next-top{
+    display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;
+    padding:.6rem 1.25rem;background:var(--surface-sunk);border-bottom:1px solid var(--line);
+  }
+  .next-countdown{margin-left:auto;font-family:"Barlow Condensed",sans-serif;font-weight:600;
+                  font-size:.9375rem;color:var(--ink-soft);letter-spacing:.02em}
+  .next-body{padding:1.5rem 1.25rem;display:grid;gap:1.5rem;grid-template-columns:1fr}
+  @media(min-width:40rem){.next-body{grid-template-columns:1.15fr 1fr;gap:2.5rem}}
+
+  .fixture-line{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+  .fixture-line .vs{font-size:.9375rem;color:var(--ink-faint)}
+  .opp{
+    font-family:"Barlow Condensed",sans-serif;font-weight:700;
+    font-size:clamp(1.6rem,4.5vw,2.2rem);line-height:1.05;margin:0;letter-spacing:-.005em;
+    text-wrap:balance;
+  }
+  .when{margin-top:.75rem;font-family:"Barlow Condensed",sans-serif;font-weight:600;
+        font-size:1.25rem;color:var(--ink);letter-spacing:.01em}
+  .when .ko{color:var(--cobalt-ink)}
+
+  .venue-label{margin-bottom:.3rem}
+  .venue-name{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:1.2rem;line-height:1.2}
+  .venue-addr{font-size:.9375rem;color:var(--ink-soft);margin-top:.15rem}
+  .maplink{
+    display:inline-flex;align-items:center;gap:.4rem;margin-top:.7rem;
+    font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:.9375rem;
+    letter-spacing:.03em;text-transform:uppercase;text-decoration:none;
+    color:var(--cobalt-ink);border-bottom:1px solid currentColor;padding-bottom:1px;
+  }
+  .maplink:hover{color:var(--ink)}
+
+  /* ---- chips ---- */
+  .chip{
+    display:inline-block;font-family:"Barlow Condensed",sans-serif;font-weight:700;
+    font-size:.75rem;letter-spacing:.09em;text-transform:uppercase;
+    padding:.2rem .5rem;border-radius:4px;white-space:nowrap;
+  }
+  .chip-h{background:var(--cobalt);color:#fff}
+  :root[data-theme="dark"] .chip-h{color:#0D1117}
+  @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip-h{color:#0D1117}}
+  .chip-a{background:transparent;color:var(--ochre);border:1px solid var(--ochre)}
+  .chip-early{background:var(--ochre-wash);color:var(--ochre)}
+  .chip-surface{background:var(--surface-sunk);color:var(--ink-soft);border:1px solid var(--line)}
+  /* A venue we've been told differs from the league's listing. */
+  .chip-moved{background:var(--ochre);color:var(--surface);margin-left:.45rem;vertical-align:.12em}
+  .venue-was{font-size:.8125rem;color:var(--ink-faint);margin-top:.15rem;font-style:italic}
+  .venue-moved{
+    margin-top:.7rem;padding:.55rem .7rem;border-radius:6px;
+    background:var(--ochre-wash);color:var(--ochre);
+    font-size:.875rem;line-height:1.45;max-width:44ch;
+  }
+  .venue-moved strong{font-weight:600}
+
+  /* ---- fixtures ---- */
+  section h2{
+    font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.5rem;
+    margin:0 0 .15rem;letter-spacing:.005em;
+  }
+  .sec-note{font-size:.9375rem;color:var(--ink-soft);margin:0 0 1rem;max-width:62ch}
+
+  .fixtures{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+  .fx{
+    display:grid;grid-template-columns:4.25rem 1fr;gap:.3rem 1rem;
+    padding:.9rem .5rem;border-bottom:1px solid var(--line);align-items:start;
+  }
+  /* Narrow: date holds column one across all three stacked rows. */
+  .fx-date{grid-row:span 3}
+  @media(min-width:44rem){
+    .fx{grid-template-columns:4.25rem 1.6fr 6.5rem 1.5fr;align-items:center;gap:1rem}
+    .fx-date{grid-row:auto}
+  }
+  .fx.is-home{background:var(--cobalt-wash)}
+  .fx.is-past{opacity:.55}
+
+  .fx-date{
+    font-family:"Barlow Condensed",sans-serif;font-weight:600;line-height:1.05;
+    text-align:center;padding-top:.1rem;
+  }
+  .fx-date .d{display:block;font-size:1.5rem;color:var(--ink)}
+  .fx-date .m{display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-faint)}
+
+  .fx-opp{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;min-width:0}
+  .fx-opp .name{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:1.2rem;line-height:1.2}
+
+  .fx-time{
+    font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:1.1rem;
+    font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;
+  }
+  .fx-time.early{color:var(--ochre)}
+
+  .fx-venue{font-size:.9375rem;color:var(--ink-soft);min-width:0}
+  .fx-venue a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--line-strong)}
+  .fx-venue a:hover{color:var(--cobalt-ink);border-bottom-color:currentColor}
+  .fx-venue .home-venue{color:var(--ink-faint)}
+
+  /* ---- table ---- */
+  .table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+  table{border-collapse:collapse;width:100%;min-width:34rem;font-variant-numeric:tabular-nums}
+  thead th{
+    font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:.75rem;
+    text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);
+    text-align:right;padding:.7rem .5rem;border-bottom:1px solid var(--line-strong);
+    background:var(--surface-sunk);white-space:nowrap;
+  }
+  thead th.club,thead th.pos{text-align:left}
+  tbody td{padding:.6rem .5rem;text-align:right;border-bottom:1px solid var(--line);font-size:.9375rem}
+  tbody tr:last-child td{border-bottom:0}
+  td.pos{text-align:left;color:var(--ink-faint);font-family:"Barlow Condensed",sans-serif;
+         font-weight:600;font-size:1rem;width:2.5rem;padding-left:.75rem}
+  td.club{text-align:left;font-family:"Barlow Condensed",sans-serif;font-weight:600;
+          font-size:1.0625rem;white-space:nowrap}
+  td.pts{font-weight:600;color:var(--ink)}
+  tr.us{background:var(--cobalt-wash)}
+  tr.us td.club{color:var(--cobalt-ink)}
+  tr.cutoff td{border-bottom:2px solid var(--ochre)}
+
+  .legend{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;margin-top:.7rem;font-size:.875rem;color:var(--ink-soft)}
+  .legend span{display:inline-flex;align-items:center;gap:.4rem}
+  .swatch{width:.7rem;height:.7rem;border-radius:2px;display:inline-block}
+
+  .callout{
+    background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--ochre);
+    border-radius:var(--radius);padding:.9rem 1.1rem;font-size:.9375rem;color:var(--ink-soft);
+  }
+  .callout strong{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--line);padding-top:1.1rem;font-size:.8125rem;
+         color:var(--ink-faint);line-height:1.6}
+
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <h1>Boston Villa FC</h1>
+    <div class="meta">
+      <strong>Over 62 &middot; Division 2</strong>
+      <span>Central flight &middot; Fall 2026</span>
+    </div>
+  </header>
+
+  <section class="next" id="next-match" aria-labelledby="next-h">
+    <div class="next-top">
+      <span class="eyebrow" id="next-h">Next match</span>
+      <span id="next-ha"></span>
+      <span class="next-countdown" id="next-count"></span>
+    </div>
+    <div class="next-body">
+      <div>
+        <div class="fixture-line">
+          <span class="vs" id="next-vs">vs</span>
+          <h2 class="opp" id="next-opp"></h2>
+        </div>
+        <div class="when" id="next-when"></div>
+      </div>
+      <div>
+        <div class="eyebrow venue-label">Ground</div>
+        <div class="venue-name" id="next-venue"></div>
+        <div class="venue-addr" id="next-addr"></div>
+        <a class="maplink" id="next-map" href="#" target="_blank" rel="noopener noreferrer">Open in Maps &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="sec-fixtures" aria-labelledby="fx-h">
+    <h2 id="fx-h">Fixtures</h2>
+    <p class="sec-note">Ten matches, five at home. Kick-off is 10:00&nbsp;AM unless the time is marked &mdash; four aren&rsquo;t, and three of those are earlier.</p>
+    <div class="fixtures" id="fixtures"></div>
+    <div class="legend">
+      <span><i class="swatch" style="background:var(--cobalt)"></i> Home &mdash; Newton South</span>
+      <span><i class="swatch" style="background:var(--ochre)"></i> Away &mdash; travel</span>
+      <span><i class="swatch" style="background:var(--ochre-wash);border:1px solid var(--ochre)"></i> Non-standard kick-off</span>
+    </div>
+  </section>
+
+  <section id="sec-table" aria-labelledby="tbl-h">
+    <h2 id="tbl-h">League table</h2>
+    <p class="sec-note" id="table-note"></p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th class="pos" scope="col">#</th>
+            <th class="club" scope="col">Club</th>
+            <th scope="col" title="Games played">GP</th>
+            <th scope="col">W</th>
+            <th scope="col">D</th>
+            <th scope="col">L</th>
+            <th scope="col" title="Goals for">GF</th>
+            <th scope="col" title="Goals against">GA</th>
+            <th scope="col" title="Goal difference">GD</th>
+            <th scope="col">Pts</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span><i class="swatch" style="background:var(--ochre)"></i> Top four qualify for the playoffs</span>
+    </div>
+  </section>
+
+  <div class="callout">
+    <strong>Early starts to watch.</strong> Lynnfield (Oct&nbsp;11) and Medway (Nov&nbsp;8) both kick off at 8:00&nbsp;AM away from home, and Bolton (Sep&nbsp;20) at 9:00&nbsp;AM. Those three are the ones worth a reminder to the squad.
+    <br><br>
+    <strong>Aug&nbsp;30 has moved.</strong> Hopkinton&rsquo;s manager says the opener is at Fruit Street, not the high school &mdash; and that the league hasn&rsquo;t updated its listing. It&rsquo;s turf rather than grass, so pack accordingly.
+  </div>
+
+  <footer>
+    Snapshot of the Mass Soccer listings taken 25 August 2026. This page is a static copy for the squad&rsquo;s convenience and makes no live calls &mdash; scores and standings won&rsquo;t update on their own. Club names open that team&rsquo;s page on the league site in a new tab, so this page stays put behind it. The league&rsquo;s official listings remain the record, except where a ground is marked <em>Moved</em> &mdash; those come from the opposing manager direct and knowingly differ from the league&rsquo;s listing.
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var US = "Boston Villa FC";
+
+  // Snapshot taken 2026-08-25 from the public Mass Soccer listings.
+  var GAMES = [
+    {iso:"2026-08-30T10:00:00-04:00", home:false, opp:"Hopkinton OF",             venue:"Hopkinton HS Field #5",     surface:"Grass", addr:"88-A Hayden Rowe Street", city:"Hopkinton", lat:42.218363, lng:-71.521944,
+      // Hopkinton's manager says the game has moved; the league listing still shows the HS field.
+      // Coordinates are the league's own registry entry for Fruit Street (field id 916).
+      moved:{venue:"Fruit Street Athletic Complex", surface:"Turf", addr:"66 Fruit Street", city:"Hopkinton", lat:42.249665, lng:-71.563378,
+             source:"Hopkinton’s manager"}},
+    {iso:"2026-09-13T10:00:00-04:00", home:true,  opp:"Medway",                   venue:"Newton South High School",  surface:"Turf",  addr:"140 Brandeis Road",       city:"Newton",    lat:42.313523, lng:-71.186542},
+    {iso:"2026-09-20T09:00:00-04:00", home:false, opp:"Nashoba Apple Corps",      venue:"Forbush Field",             surface:"Grass", addr:"200 Forbush Mill Road",   city:"Bolton",    lat:42.446502, lng:-71.650530},
+    {iso:"2026-09-27T10:00:00-04:00", home:true,  opp:"Warthog Wonders",          venue:"Newton South High School",  surface:"Turf",  addr:"140 Brandeis Road",       city:"Newton",    lat:42.313523, lng:-71.186542},
+    {iso:"2026-10-04T10:00:00-04:00", home:true,  opp:"Danvers EFC",              venue:"Newton South High School",  surface:"Turf",  addr:"140 Brandeis Road",       city:"Newton",    lat:42.313523, lng:-71.186542},
+    {iso:"2026-10-11T08:00:00-04:00", home:false, opp:"Lynnfield F.C. Olympians", venue:"Lynnfield Middle School",   surface:"Grass", addr:"505 Main Street",         city:"Lynnfield", lat:42.537385, lng:-71.051355},
+    {iso:"2026-10-18T10:15:00-04:00", home:false, opp:"Arlington PondDawgz 62",   venue:"Arlington Catholic Turf Field", surface:"Turf",  addr:"22 Summer Street",        city:"Arlington", lat:42.419230, lng:-71.153100},
+    {iso:"2026-10-25T10:00:00-04:00", home:true,  opp:"Nashoba Apple Corps",      venue:"Newton South High School",  surface:"Turf",  addr:"140 Brandeis Road",       city:"Newton",    lat:42.313523, lng:-71.186542},
+    {iso:"2026-11-01T10:00:00-05:00", home:true,  opp:"Hopkinton OF",             venue:"Newton South High School",  surface:"Turf",  addr:"140 Brandeis Road",       city:"Newton",    lat:42.313523, lng:-71.186542},
+    {iso:"2026-11-08T08:00:00-05:00", home:false, opp:"Medway",                   venue:"Medway High School",        surface:"Turf",  addr:"88 Summer Street",        city:"Medway",    lat:42.153180, lng:-71.438214}
+  ];
+
+  // Standings snapshot. gp/w/d/l/gf/ga/pts come straight from the league feed —
+  // swap these numbers on the next pull and the page re-sorts itself.
+  var TABLE = [
+    {id:30064, club:"Warthog Wonders",         gp:0,w:0,d:0,l:0,gf:0,ga:0,pts:0},
+    {id:30065, club:"Danvers EFC",             gp:0,w:0,d:0,l:0,gf:0,ga:0,pts:0},
+    {id:30066, club:"Lynnfield F.C. Olympians",gp:0,w:0,d:0,l:0,gf:0,ga:0,pts:0},
+    {id:30067, club:"Arlington PondDawgz 62",  gp:0,w:0,d:0,l:0,gf:0,ga:0,pts:0},
+    {id:30068, club:"Medway",                  gp:0,w:0,d:0,l:0,gf:0,ga:0,pts:0},
+    {id:30069, club:"Nashoba Apple Corps",     gp:0,w:0,d:0,l:0,gf:0,ga:0,pts:0},
+    {id:30070, club:"Hopkinton OF",            gp:0,w:0,d:0,l:0,gf:0,ga:0,pts:0},
+    {id:30071, club:US,                        gp:0,w:0,d:0,l:0,gf:0,ga:0,pts:0}
+  ];
+  var PLAYOFF_SPOTS = 4;
+
+  // The league's own team page, so a click lands exactly where it would on their site.
+  var LEAGUE_CTX = "season_id=179&bracket_id=60&division_id=152&league_id=7";
+  function teamURL(id){
+    return "https://victory.mass-soccer.org/team?team_id=" + id + "&" + LEAGUE_CTX;
+  }
+  // Opens on the league site in a new tab, so this page stays put behind it.
+  function teamLink(id, name, cls){
+    if(!id) return el("span", cls, name);
+    var a = el("a", cls, name);
+    a.href = teamURL(id);
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.title = name + " on the league site (opens a new tab)";
+    return a;
+  }
+  var IDS = {};
+  TABLE.forEach(function(t){ IDS[t.club] = t.id; });
+
+  var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+  function d(g){ return new Date(g.iso); }
+  function koText(g){
+    var t = d(g), h = t.getHours(), m = t.getMinutes();
+    var ap = h >= 12 ? "PM" : "AM", hh = h % 12; if(hh === 0) hh = 12;
+    return hh + ":" + (m < 10 ? "0" + m : m) + " " + ap;
+  }
+  function isStandardKO(g){ var t = d(g); return t.getHours() === 10 && t.getMinutes() === 0; }
+  function isEarly(g){ var t = d(g); return t.getHours() < 10; }
+  // Where the game is actually being played — the league listing unless we've been told otherwise.
+  function groundOf(g){ return g.moved || g; }
+  function mapURL(p){
+    return "https://www.google.com/maps/search/?api=1&query=" + p.lat + "%2C" + p.lng;
+  }
+  function el(tag, cls, text){
+    var n = document.createElement(tag);
+    if(cls) n.className = cls;
+    if(text != null) n.textContent = text;
+    return n;
+  }
+
+  // ---------- fixtures ----------
+  var now = new Date();
+  var host = document.getElementById("fixtures");
+
+  GAMES.forEach(function(g){
+    var row = el("div", "fx" + (g.home ? " is-home" : "") + (d(g) < now ? " is-past" : ""));
+
+    var date = el("div", "fx-date");
+    date.appendChild(el("span", "d", String(d(g).getDate())));
+    date.appendChild(el("span", "m", MONTHS[d(g).getMonth()]));
+    row.appendChild(date);
+
+    var opp = el("div", "fx-opp");
+    opp.appendChild(el("span", "chip " + (g.home ? "chip-h" : "chip-a"), g.home ? "Home" : "Away"));
+    opp.appendChild(teamLink(IDS[g.opp], g.opp, "name club-link"));
+    row.appendChild(opp);
+
+    var time = el("div", "fx-time" + (isEarly(g) ? " early" : ""));
+    time.appendChild(document.createTextNode(koText(g)));
+    if(!isStandardKO(g)) time.appendChild(el("span", "chip chip-early", isEarly(g) ? "Early" : "Late"));
+    row.appendChild(time);
+
+    var venue = el("div", "fx-venue");
+    var ground = groundOf(g);
+    if(g.home){
+      venue.appendChild(el("span", "home-venue", ground.venue));
+    } else {
+      var a = el("a", null, ground.venue + ", " + ground.city);
+      a.href = mapURL(ground); a.target = "_blank"; a.rel = "noopener noreferrer";
+      venue.appendChild(a);
+    }
+    if(g.moved){
+      venue.appendChild(el("span", "chip chip-moved", "Moved"));
+      venue.appendChild(el("div", "venue-was", "League still lists " + g.venue));
+    }
+    row.appendChild(venue);
+
+    host.appendChild(row);
+  });
+
+  // ---------- next match ----------
+  var next = GAMES.filter(function(g){ return d(g) >= now; })[0] || GAMES[GAMES.length - 1];
+  var nd = d(next);
+
+  document.getElementById("next-vs").textContent = next.home ? "at home to" : "away to";
+  document.getElementById("next-opp").appendChild(teamLink(IDS[next.opp], next.opp, "club-link"));
+  document.getElementById("next-ha").appendChild(
+    el("span", "chip " + (next.home ? "chip-h" : "chip-a"), next.home ? "Home" : "Away")
+  );
+
+  var when = document.getElementById("next-when");
+  var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  when.appendChild(document.createTextNode(
+    days[nd.getDay()] + ", " + MONTHS[nd.getMonth()] + " " + nd.getDate() + " — "
+  ));
+  when.appendChild(el("span", "ko", koText(next)));
+  if(!isStandardKO(next)){
+    when.appendChild(document.createTextNode(" "));
+    when.appendChild(el("span", "chip chip-early", isEarly(next) ? "Earlier than usual" : "Later than usual"));
+  }
+
+  var dayMs = 864e5;
+  var midnightToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  var midnightGame = new Date(nd.getFullYear(), nd.getMonth(), nd.getDate());
+  var delta = Math.round((midnightGame - midnightToday) / dayMs);
+  document.getElementById("next-count").textContent =
+    delta > 1 ? "in " + delta + " days" : delta === 1 ? "tomorrow" : delta === 0 ? "today" : "";
+
+  var nextGround = groundOf(next);
+  var nv = document.getElementById("next-venue");
+  nv.textContent = nextGround.venue + " (" + nextGround.surface + ")";
+  if(next.moved) nv.appendChild(el("span", "chip chip-moved", "Moved"));
+  document.getElementById("next-addr").textContent = nextGround.addr + ", " + nextGround.city + ", MA";
+  document.getElementById("next-map").href = mapURL(nextGround);
+
+  if(next.moved){
+    var warn = el("div", "venue-moved");
+    warn.appendChild(el("strong", null, "Not the listed ground. "));
+    warn.appendChild(document.createTextNode(
+      "Per " + next.moved.source + ". The league still lists " + next.venue +
+      " (" + next.surface.toLowerCase() + "), about three miles southeast. Directions above go to " +
+      next.moved.venue + "."
+    ));
+    nv.parentNode.appendChild(warn);
+  }
+
+  // ---------- table ----------
+  var seasonStarted = TABLE.some(function(t){ return t.gp > 0; });
+  var tb = document.getElementById("table-body");
+
+  TABLE.forEach(function(t){ t.gd = t.gf - t.ga; });
+
+  // Before a ball is kicked the feed's own order is all there is; after that,
+  // sort the way a league table actually sorts.
+  var rows = TABLE.slice();
+  if(seasonStarted){
+    rows.sort(function(a,b){
+      return b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || a.club.localeCompare(b.club);
+    });
+  }
+
+  rows.forEach(function(t, i){
+    var tr = el("tr", (t.club === US ? "us" : "") + (i === PLAYOFF_SPOTS - 1 ? " cutoff" : ""));
+    tr.appendChild(el("td", "pos", String(i + 1)));
+
+    var club = el("td", "club");
+    club.appendChild(teamLink(t.id, t.club, "club-link"));
+    tr.appendChild(club);
+
+    [t.gp, t.w, t.d, t.l, t.gf, t.ga].forEach(function(v){
+      tr.appendChild(el("td", null, String(v)));
+    });
+    tr.appendChild(el("td", null, (t.gd > 0 ? "+" : "") + t.gd));
+    tr.appendChild(el("td", "pts", String(t.pts)));
+    tb.appendChild(tr);
+  });
+
+  // ---------- running order ----------
+  // Once results exist the table is what people come for, so it leads.
+  document.getElementById("sec-table").style.order   = seasonStarted ? "1" : "3";
+  document.getElementById("next-match").style.order  = seasonStarted ? "2" : "1";
+  document.getElementById("sec-fixtures").style.order = seasonStarted ? "3" : "2";
+
+  document.getElementById("table-note").textContent = seasonStarted
+    ? "Sorted on points, then goal difference. Tap a club to open its record on the league site."
+    : "The season hasn’t kicked off, so every column still reads zero. The order below is the league’s listing, not earned form — tap a club to open its page on the league site.";
+})();
+</script>
