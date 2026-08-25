@@ -281,7 +281,7 @@
 
   <section id="sec-table" aria-labelledby="tbl-h">
     <h2 id="tbl-h">League table</h2>
-    <p class="sec-note" id="table-note"></p>
+    <p class="sec-note">Click a club to open its record on the league site.</p>
     <div class="table-scroll">
       <table>
         <thead>
@@ -307,8 +307,6 @@
   </section>
 
   <div class="callout">
-    <strong>Early starts to watch.</strong> Lynnfield (Oct&nbsp;11) and Medway (Nov&nbsp;8) both kick off at 8:00&nbsp;AM away from home, and Bolton (Sep&nbsp;20) at 9:00&nbsp;AM. Those three are the ones worth a reminder to the squad.
-    <br><br>
     <strong>Aug&nbsp;30 has moved.</strong> Hopkinton&rsquo;s manager says the opener is at Fruit Street, not the high school &mdash; and that the league hasn&rsquo;t updated its listing. It&rsquo;s turf rather than grass, so pack accordingly.
   </div>
 
@@ -519,8 +517,5 @@
   document.getElementById("next-match").style.order  = seasonStarted ? "2" : "1";
   document.getElementById("sec-fixtures").style.order = seasonStarted ? "3" : "2";
 
-  document.getElementById("table-note").textContent = seasonStarted
-    ? "Sorted on points, then goal difference. Tap a club to open its record on the league site."
-    : "The season hasn’t kicked off, so every column still reads zero. The order below is the league’s listing, not earned form — tap a club to open its page on the league site.";
 })();
 </script>
