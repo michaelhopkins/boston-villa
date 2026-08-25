@@ -11,9 +11,9 @@ as plain text with no way to navigate to them.
 
 ## How it works
 
-`index.html` is self-contained — one file, no build step, no dependencies, no backend.
-The fixture and standings data is embedded directly in a `<script>` block near the
-bottom. Open the file and the data is the first thing you'll find.
+`index.html` has no build step and no dependencies. Fixture and standings data lives
+in `data.json` beside it and is fetched same-origin at load; the page never contacts
+the league's servers.
 
 The page makes no requests to the league's servers. Club logos are deliberately not
 loaded for the same reason.
@@ -26,6 +26,15 @@ Two things adapt on their own:
   leads with the next match before then.
 
 ## Updating the data
+
+`data.json` is rewritten hourly by `.github/workflows/refresh.yml`, which runs
+`scripts/fetch_data.py` on a GitHub runner. Nothing needs to run on your machine.
+The job writes only `data.json`, and only when the fixtures or table actually
+differ — an unchanged week produces no commit at all.
+
+Run it by hand any time from the repo's Actions tab, or with `gh workflow run refresh.yml`.
+
+### Endpoints
 
 The numbers come from the league's public JSON API, which needs no authentication:
 
@@ -50,6 +59,10 @@ Any fixture may carry a `moved` block, used when we've been told a game isn't wh
 league says it is. It renders as a *Moved* flag with the league's listing still shown
 underneath, rather than silently replacing it — so anyone cross-checking against the
 official page can see why the two differ, and where the correction came from.
+
+These live in the `OVERRIDES` block in `index.html`, keyed by game date, and are
+merged in the browser — so the hourly refresh, which only rewrites `data.json`,
+can never clobber them. Delete an entry once the league's listing catches up.
 
 The Aug 30 opener is the current example: Hopkinton's manager says it's at Fruit Street
 Athletic Complex, roughly three miles from the listed high school field, and turf rather
