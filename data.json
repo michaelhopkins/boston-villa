@@ -5,12 +5,12 @@
    "iso": "2026-08-30T10:00:00-04:00",
    "home": false,
    "opp": "Hopkinton OF",
-   "venue": "Hopkinton HS Field #5",
-   "surface": "Grass",
-   "addr": "88-A Hayden Rowe Street",
+   "venue": "Fruit Street Athletic Complex",
+   "surface": "Turf",
+   "addr": "66 Fruit St",
    "city": "Hopkinton",
-   "lat": 42.218363,
-   "lng": -71.521944,
+   "lat": 42.249665,
+   "lng": -71.563378,
    "us": null,
    "them": null,
    "final": false,
@@ -251,5 +251,5 @@
    "pts": 0
   }
  ],
- "updated": "25 August 2026"
+ "updated": "28 August 2026"
 }
