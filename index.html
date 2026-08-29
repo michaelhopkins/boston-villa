@@ -596,6 +596,21 @@
     );
   }
 
+  // Saved to a phone's home screen, this page is resumed rather than re-opened:
+  // the fetch below runs once and would otherwise show whatever was true the day
+  // it was first opened. Re-check whenever it comes back to the foreground after
+  // a spell away.
+  var loadedAt = Date.now();
+  var STALE_AFTER = 5 * 60 * 1000;
+  function recheck(){
+    if(document.visibilityState === "visible" && Date.now() - loadedAt > STALE_AFTER){
+      location.reload();
+    }
+  }
+  document.addEventListener("visibilitychange", recheck);
+  window.addEventListener("pageshow", function(e){ if(e.persisted) recheck(); });
+  window.addEventListener("focus", recheck);
+
   fetch("data.json", {cache:"no-cache"})
     .then(function(r){
       if(!r.ok) throw new Error("The server returned " + r.status + ".");
