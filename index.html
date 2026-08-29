@@ -193,7 +193,8 @@
   .fx.played .fx-date .d{color:var(--ink-soft)}
   .fx.played .fx-opp .name{color:var(--ink-soft)}
   .fx.played .fx-venue{color:var(--ink-faint)}
-  .fx.played .chip-h{opacity:.8}
+  .fx.played .chip-h,
+  .fx.played .chip-a{opacity:.6}
 
   /* ---- results ---- */
   .res{display:flex;align-items:center;gap:.55rem;font-variant-numeric:tabular-nums}
@@ -389,11 +390,12 @@
   function isStandardKO(g){ var t = d(g); return t.getHours() === 10 && t.getMinutes() === 0; }
   function isEarly(g){ var t = d(g); return t.getHours() < 10; }
 
-  // A game counts as "on" until the end of its own day, so the card doesn't jump
-  // to the next fixture while everyone is still standing on the pitch.
-  function endOfMatchDay(g){
-    var t = d(g);
-    return new Date(t.getFullYear(), t.getMonth(), t.getDate(), 23, 59, 59);
+  // A game counts as "on" until roughly full time — ninety minutes, a half-time
+  // and a bit of slack. Long enough that the card doesn't move on while everyone
+  // is still on the pitch, short enough that it isn't still today's match by tea.
+  var MATCH_RUNS_FOR = 2 * 60 * 60 * 1000;
+  function matchEnds(g){
+    return new Date(d(g).getTime() + MATCH_RUNS_FOR);
   }
   function hasScore(g){ return g.us != null && g.them != null; }
   function outcome(g){
@@ -446,7 +448,7 @@
 
   GAMES.forEach(function(g){
     // Played means the result is in, or the day has gone by — whichever lands first.
-    var done = hasScore(g) || endOfMatchDay(g) < now;
+    var done = hasScore(g) || matchEnds(g) < now;
     var row = el("div", "fx" + (g.home ? " is-home" : "") + (done ? " played" : ""));
 
     var date = el("div", "fx-date");
@@ -498,7 +500,7 @@
   // ---------- next match ----------
   // Nothing left to play: drop the card rather than present a finished game as upcoming.
   var next = GAMES.filter(function(g){
-    return !hasScore(g) && endOfMatchDay(g) >= now;
+    return !hasScore(g) && matchEnds(g) >= now;
   })[0];
   if(!next){
     document.getElementById("next-match").remove();
