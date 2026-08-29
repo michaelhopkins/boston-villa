@@ -22,8 +22,8 @@
     --cobalt:#1B4DB1;
     --cobalt-ink:#1B4DB1;
     --cobalt-wash:#E7EEFB;
-    --ochre:#A25E06;
-    --ochre-wash:#FBF0DE;
+    --orange:#C2610C;
+    --orange-wash:#FCEFDF;
     --shadow:0 1px 2px rgba(19,24,32,.06),0 8px 24px -12px rgba(19,24,32,.18);
     --radius:10px;
   }
@@ -40,8 +40,8 @@
       --cobalt:#7BA5F2;
       --cobalt-ink:#9BBCF7;
       --cobalt-wash:#16243C;
-      --ochre:#E0A44A;
-      --ochre-wash:#2B2114;
+      --orange:#F0A95C;
+      --orange-wash:#2C2114;
       --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.7);
     }
   }
@@ -57,8 +57,8 @@
     --cobalt:#7BA5F2;
     --cobalt-ink:#9BBCF7;
     --cobalt-wash:#16243C;
-    --ochre:#E0A44A;
-    --ochre-wash:#2B2114;
+    --orange:#F0A95C;
+    --orange-wash:#2C2114;
     --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.7);
   }
 
@@ -73,8 +73,13 @@
     -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:58rem;margin:0 auto;padding:2rem 1.25rem 4rem;display:flex;flex-direction:column;gap:2.25rem}
-  /* Sections are reordered at runtime (1–3); these stay pinned at either end. */
+  /* Fixed running order: the briefing, then where we stand, then the season.
+     Keeping Next and Fixtures apart stops the upcoming game appearing twice
+     within one screen. */
   .mast{order:0}
+  #next-match{order:1}
+  #sec-table{order:2}
+  #sec-fixtures{order:3}
   .callout{order:8}
   footer{order:9}
 
@@ -149,15 +154,17 @@
   .chip-h{background:var(--cobalt);color:#fff}
   :root[data-theme="dark"] .chip-h{color:#0D1117}
   @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip-h{color:#0D1117}}
-  .chip-a{background:transparent;color:var(--ochre);border:1px solid var(--ochre)}
-  .chip-early{background:var(--ochre-wash);color:var(--ochre)}
+  .chip-a{background:transparent;color:var(--orange);border:1px solid var(--orange)}
+  /* Early / Late / Moved are marks, not labels — a size down from Home and Away. */
+  .chip-early{background:var(--orange-wash);color:var(--orange);
+              font-size:.65rem;padding:.12rem .38rem;letter-spacing:.08em}
   .chip-surface{background:var(--surface-sunk);color:var(--ink-soft);border:1px solid var(--line)}
   /* A venue we've been told differs from the league's listing. */
-  .chip-moved{background:var(--ochre);color:var(--surface);margin-left:.45rem;vertical-align:.12em}
+  .chip-moved{background:var(--orange);color:var(--surface);margin-left:.45rem;vertical-align:.12em}
   .venue-was{font-size:.8125rem;color:var(--ink-faint);margin-top:.15rem;font-style:italic}
   .venue-moved{
     margin-top:.7rem;padding:.55rem .7rem;border-radius:6px;
-    background:var(--ochre-wash);color:var(--ochre);
+    background:var(--orange-wash);color:var(--orange);
     font-size:.875rem;line-height:1.45;max-width:44ch;
   }
   .venue-moved strong{font-weight:600}
@@ -181,7 +188,24 @@
     .fx-date{grid-row:auto}
   }
   .fx.is-home{background:var(--cobalt-wash)}
-  .fx.is-past{opacity:.55}
+
+  /* A played row steps back in stages: the date and opponent are history, the
+     ground is spent, but the score is the whole reason to look — it stays bright. */
+  .fx.played .fx-date .d{color:var(--ink-soft)}
+  .fx.played .fx-opp .name{color:var(--ink-soft)}
+  .fx.played .fx-venue{color:var(--ink-faint)}
+  .fx.played .chip-h{opacity:.8}
+
+  /* ---- results ---- */
+  .res{display:flex;align-items:center;gap:.55rem;font-variant-numeric:tabular-nums}
+  .wdl{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:1.5rem;height:1.5rem;border-radius:4px;flex:none;
+    font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.9375rem;line-height:1;
+    background:transparent;color:var(--ink-soft);box-shadow:inset 0 0 0 1.5px var(--line-strong);
+  }
+  .score{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:1.2rem;color:var(--ink)}
+  .score .pending{color:var(--ink-faint);font-weight:500}
 
   .fx-date{
     font-family:"Barlow Condensed",sans-serif;font-weight:600;line-height:1.05;
@@ -197,7 +221,7 @@
     font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:1.1rem;
     font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;
   }
-  .fx-time.early{color:var(--ochre)}
+  .fx-time.early{color:var(--orange)}
 
   .fx-venue{font-size:.9375rem;color:var(--ink-soft);min-width:0}
   .fx-venue a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--line-strong)}
@@ -223,14 +247,14 @@
   td.pts{font-weight:600;color:var(--ink)}
   tr.us{background:var(--cobalt-wash)}
   tr.us td.club{color:var(--cobalt-ink)}
-  tr.cutoff td{border-bottom:2px solid var(--ochre)}
+  tr.cutoff td{border-bottom:2px solid var(--orange)}
 
   .legend{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;margin-top:.7rem;font-size:.875rem;color:var(--ink-soft)}
   .legend span{display:inline-flex;align-items:center;gap:.4rem}
   .swatch{width:.7rem;height:.7rem;border-radius:2px;display:inline-block}
 
   .callout{
-    background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--ochre);
+    background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--orange);
     border-radius:var(--radius);padding:.9rem 1.1rem;font-size:.9375rem;color:var(--ink-soft);
   }
   .callout strong{color:var(--ink);font-weight:600}
@@ -240,8 +264,8 @@
 
   /* Shown only if data.json can't be loaded. */
   .loaderr{
-    order:0;background:var(--ochre-wash);color:var(--ochre);
-    border:1px solid var(--ochre);border-radius:var(--radius);
+    order:0;background:var(--orange-wash);color:var(--orange);
+    border:1px solid var(--orange);border-radius:var(--radius);
     padding:.9rem 1.1rem;font-size:.9375rem;line-height:1.5;
   }
   .loaderr strong{font-weight:600}
@@ -289,8 +313,8 @@
     <div class="fixtures" id="fixtures"></div>
     <div class="legend">
       <span><i class="swatch" style="background:var(--cobalt)"></i> Home &mdash; Newton South</span>
-      <span><i class="swatch" style="background:var(--ochre)"></i> Away &mdash; travel</span>
-      <span><i class="swatch" style="background:var(--ochre-wash);border:1px solid var(--ochre)"></i> Non-standard kick-off</span>
+      <span><i class="swatch" style="background:var(--orange)"></i> Away &mdash; travel</span>
+      <span><i class="swatch" style="background:var(--orange-wash);border:1px solid var(--orange)"></i> Non-standard kick-off</span>
     </div>
   </section>
 
@@ -317,7 +341,7 @@
       </table>
     </div>
     <div class="legend">
-      <span><i class="swatch" style="background:var(--ochre)"></i> Top four qualify for the playoffs</span>
+      <span><i class="swatch" style="background:var(--orange)"></i> Top four qualify for the playoffs</span>
     </div>
   </section>
 
@@ -381,6 +405,23 @@
   }
   function isStandardKO(g){ var t = d(g); return t.getHours() === 10 && t.getMinutes() === 0; }
   function isEarly(g){ var t = d(g); return t.getHours() < 10; }
+
+  // A game counts as "on" until the end of its own day, so the card doesn't jump
+  // to the next fixture while everyone is still standing on the pitch.
+  function endOfMatchDay(g){
+    var t = d(g);
+    return new Date(t.getFullYear(), t.getMonth(), t.getDate(), 23, 59, 59);
+  }
+  function hasScore(g){ return g.us != null && g.them != null; }
+  function outcome(g){
+    if(g.us > g.them) return "W";
+    if(g.us < g.them) return "L";
+    return "D";
+  }
+  // Official order: home team first, whichever side we were.
+  function scoreText(g){
+    return g.home ? (g.us + "–" + g.them) : (g.them + "–" + g.us);
+  }
   // Where the game is actually being played — the league listing unless we've been told otherwise.
   function groundOf(g){ return g.moved || g; }
   function mapURL(p){
@@ -399,7 +440,9 @@
   var host = document.getElementById("fixtures");
 
   GAMES.forEach(function(g){
-    var row = el("div", "fx" + (g.home ? " is-home" : "") + (d(g) < now ? " is-past" : ""));
+    // Played means the result is in, or the day has gone by — whichever lands first.
+    var done = hasScore(g) || endOfMatchDay(g) < now;
+    var row = el("div", "fx" + (g.home ? " is-home" : "") + (done ? " played" : ""));
 
     var date = el("div", "fx-date");
     date.appendChild(el("span", "d", String(d(g).getDate())));
@@ -411,10 +454,23 @@
     opp.appendChild(teamLink(IDS[g.opp], g.opp, "name club-link"));
     row.appendChild(opp);
 
-    var time = el("div", "fx-time" + (isEarly(g) ? " early" : ""));
-    time.appendChild(document.createTextNode(koText(g)));
-    if(!isStandardKO(g)) time.appendChild(el("span", "chip chip-early", isEarly(g) ? "Early" : "Late"));
-    row.appendChild(time);
+    if(hasScore(g)){
+      var res = el("div", "res");
+      res.appendChild(el("span", "wdl", outcome(g)));
+      res.appendChild(el("span", "score", scoreText(g)));
+      row.appendChild(res);
+    } else if(done){
+      // Played, but the referee hasn't filed it yet.
+      var pend = el("div", "res");
+      pend.appendChild(el("span", "score", ""));
+      pend.lastChild.appendChild(el("span", "pending", g.postponed ? "Postponed" : "No score yet"));
+      row.appendChild(pend);
+    } else {
+      var time = el("div", "fx-time" + (isEarly(g) ? " early" : ""));
+      time.appendChild(document.createTextNode(koText(g)));
+      if(!isStandardKO(g)) time.appendChild(el("span", "chip chip-early", isEarly(g) ? "Early" : "Late"));
+      row.appendChild(time);
+    }
 
     var venue = el("div", "fx-venue");
     var ground = groundOf(g);
@@ -435,7 +491,13 @@
   });
 
   // ---------- next match ----------
-  var next = GAMES.filter(function(g){ return d(g) >= now; })[0] || GAMES[GAMES.length - 1];
+  // Nothing left to play: drop the card rather than present a finished game as upcoming.
+  var next = GAMES.filter(function(g){
+    return !hasScore(g) && endOfMatchDay(g) >= now;
+  })[0];
+  if(!next){
+    document.getElementById("next-match").remove();
+  } else {
   var nd = d(next);
 
   document.getElementById("next-vs").textContent = next.home ? "at home to" : "away to";
@@ -480,6 +542,7 @@
     ));
     nv.parentNode.appendChild(warn);
   }
+  }
 
   // ---------- table ----------
   var seasonStarted = TABLE.some(function(t){ return t.gp > 0; });
@@ -512,11 +575,6 @@
     tb.appendChild(tr);
   });
 
-  // ---------- running order ----------
-  // Once results exist the table is what people come for, so it leads.
-  document.getElementById("sec-table").style.order   = seasonStarted ? "1" : "3";
-  document.getElementById("next-match").style.order  = seasonStarted ? "2" : "1";
-  document.getElementById("sec-fixtures").style.order = seasonStarted ? "3" : "2";
   }
 
   // ---------- load ----------
