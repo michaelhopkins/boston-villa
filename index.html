@@ -80,7 +80,6 @@
   #next-match{order:1}
   #sec-table{order:2}
   #sec-fixtures{order:3}
-  .callout{order:8}
   footer{order:9}
 
   a{color:var(--cobalt-ink)}
@@ -253,12 +252,6 @@
   .legend span{display:inline-flex;align-items:center;gap:.4rem}
   .swatch{width:.7rem;height:.7rem;border-radius:2px;display:inline-block}
 
-  .callout{
-    background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--orange);
-    border-radius:var(--radius);padding:.9rem 1.1rem;font-size:.9375rem;color:var(--ink-soft);
-  }
-  .callout strong{color:var(--ink);font-weight:600}
-
   footer{border-top:1px solid var(--line);padding-top:1.1rem;font-size:.8125rem;
          color:var(--ink-faint);line-height:1.6}
 
@@ -314,7 +307,6 @@
     <div class="legend">
       <span><i class="swatch" style="background:var(--cobalt)"></i> Home &mdash; Newton South</span>
       <span><i class="swatch" style="background:var(--orange)"></i> Away &mdash; travel</span>
-      <span><i class="swatch" style="background:var(--orange-wash);border:1px solid var(--orange)"></i> Non-standard kick-off</span>
     </div>
   </section>
 
@@ -344,10 +336,6 @@
       <span><i class="swatch" style="background:var(--orange)"></i> Top four qualify for the playoffs</span>
     </div>
   </section>
-
-  <div class="callout">
-    <strong>The opener is at Fruit Street</strong>, not the high school &mdash; and it&rsquo;s turf rather than grass, so pack accordingly. The league&rsquo;s listing now says the same.
-  </div>
 
   <footer>
     Snapshot of the Mass Soccer listing taken <span id="updated">&mdash;</span>. This page is a static copy for the Boston Villa squad&rsquo;s convenience.
@@ -419,6 +407,28 @@
   }
   // Where the game is actually being played — the league listing unless we've been told otherwise.
   function groundOf(g){ return g.moved || g; }
+
+  // Two listings describing the same patch of grass. ~0.0005° is about 55 metres,
+  // which is looser than any rounding and tighter than two real grounds.
+  function sameGround(a, b){
+    if(a.lat == null || b.lat == null) return false;
+    return Math.abs(a.lat - b.lat) < 0.0005 && Math.abs(a.lng - b.lng) < 0.0005;
+  }
+  // Computed rather than written down, so it can't go stale the way a hand-typed
+  // "three miles southeast" does the moment either end moves.
+  function milesBetween(a, b){
+    var R = 3958.8, rad = Math.PI / 180;
+    var dLat = (b.lat - a.lat) * rad, dLng = (b.lng - a.lng) * rad;
+    var h = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(a.lat*rad) * Math.cos(b.lat*rad) * Math.sin(dLng/2) * Math.sin(dLng/2);
+    return 2 * R * Math.asin(Math.sqrt(h));
+  }
+  function distancePhrase(a, b){
+    if(a.lat == null || b.lat == null) return "";
+    var mi = milesBetween(a, b);
+    if(mi < 1) return ", under a mile away";
+    return ", about " + Math.round(mi) + (Math.round(mi) === 1 ? " mile away" : " miles away");
+  }
   function mapURL(p){
     return "https://www.google.com/maps/search/?api=1&query=" + p.lat + "%2C" + p.lng;
   }
@@ -531,8 +541,7 @@
     warn.appendChild(el("strong", null, "Not the listed ground. "));
     warn.appendChild(document.createTextNode(
       "Per " + next.moved.source + ". The league still lists " + next.venue +
-      " (" + next.surface.toLowerCase() + ")" +
-      (next.moved.wasDirection ? ", " + next.moved.wasDirection : "") +
+      " (" + next.surface.toLowerCase() + ")" + distancePhrase(next, next.moved) +
       ". Directions above go to " + next.moved.venue + "."
     ));
     nv.parentNode.appendChild(warn);
@@ -597,7 +606,11 @@
       TABLE.forEach(function(t){ IDS[t.club] = t.id; });
       GAMES = (data.games || []).map(function(g){
         var o = OVERRIDES[g.date];
-        return o ? Object.assign({}, g, {moved:o}) : g;
+        // An override is a claim that the league is wrong about the ground. Once the
+        // league lists the same place, the claim has expired — drop it, rather than
+        // keep asserting a difference that no longer exists.
+        if(!o || sameGround(o, g)) return g;
+        return Object.assign({}, g, {moved:o});
       });
       if(!GAMES.length) return fail("The schedule came back empty.");
       render();
