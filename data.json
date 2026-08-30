@@ -163,6 +163,17 @@
  ],
  "table": [
   {
+   "id": 30067,
+   "club": "Arlington PondDawgz 62",
+   "gp": 1,
+   "w": 1,
+   "d": 0,
+   "l": 0,
+   "gf": 2,
+   "ga": 0,
+   "pts": 3
+  },
+  {
    "id": 30064,
    "club": "Warthog Wonders",
    "gp": 0,
@@ -187,23 +198,12 @@
   {
    "id": 30066,
    "club": "Lynnfield F.C. Olympians",
-   "gp": 0,
+   "gp": 1,
    "w": 0,
    "d": 0,
-   "l": 0,
+   "l": 1,
    "gf": 0,
-   "ga": 0,
-   "pts": 0
-  },
-  {
-   "id": 30067,
-   "club": "Arlington PondDawgz 62",
-   "gp": 0,
-   "w": 0,
-   "d": 0,
-   "l": 0,
-   "gf": 0,
-   "ga": 0,
+   "ga": 2,
    "pts": 0
   },
   {
@@ -251,5 +251,5 @@
    "pts": 0
   }
  ],
- "updated": "28 August 2026"
+ "updated": "30 August 2026"
 }
