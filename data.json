@@ -174,52 +174,30 @@
    "pts": 3
   },
   {
-   "id": 30064,
-   "club": "Warthog Wonders",
-   "gp": 0,
-   "w": 0,
-   "d": 0,
-   "l": 0,
-   "gf": 0,
-   "ga": 0,
-   "pts": 0
-  },
-  {
-   "id": 30065,
-   "club": "Danvers EFC",
-   "gp": 0,
-   "w": 0,
-   "d": 0,
-   "l": 0,
-   "gf": 0,
-   "ga": 0,
-   "pts": 0
-  },
-  {
-   "id": 30066,
-   "club": "Lynnfield F.C. Olympians",
-   "gp": 1,
-   "w": 0,
-   "d": 0,
-   "l": 1,
-   "gf": 0,
-   "ga": 2,
-   "pts": 0
-  },
-  {
    "id": 30068,
    "club": "Medway",
-   "gp": 0,
-   "w": 0,
+   "gp": 1,
+   "w": 1,
    "d": 0,
    "l": 0,
-   "gf": 0,
-   "ga": 0,
-   "pts": 0
+   "gf": 2,
+   "ga": 1,
+   "pts": 3
   },
   {
-   "id": 30069,
-   "club": "Nashoba Apple Corps",
+   "id": 30064,
+   "club": "Warthog Wonders",
+   "gp": 1,
+   "w": 1,
+   "d": 0,
+   "l": 0,
+   "gf": 4,
+   "ga": 3,
+   "pts": 3
+  },
+  {
+   "id": 30071,
+   "club": "Boston Villa FC",
    "gp": 0,
    "w": 0,
    "d": 0,
@@ -240,14 +218,36 @@
    "pts": 0
   },
   {
-   "id": 30071,
-   "club": "Boston Villa FC",
-   "gp": 0,
+   "id": 30066,
+   "club": "Lynnfield F.C. Olympians",
+   "gp": 1,
    "w": 0,
    "d": 0,
-   "l": 0,
+   "l": 1,
    "gf": 0,
-   "ga": 0,
+   "ga": 2,
+   "pts": 0
+  },
+  {
+   "id": 30069,
+   "club": "Nashoba Apple Corps",
+   "gp": 1,
+   "w": 0,
+   "d": 0,
+   "l": 1,
+   "gf": 1,
+   "ga": 2,
+   "pts": 0
+  },
+  {
+   "id": 30065,
+   "club": "Danvers EFC",
+   "gp": 1,
+   "w": 0,
+   "d": 0,
+   "l": 1,
+   "gf": 3,
+   "ga": 4,
    "pts": 0
   }
  ],
