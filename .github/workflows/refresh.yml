@@ -19,7 +19,8 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # v4 targets Node 20, which GitHub is retiring; v5 onwards runs on Node 24.
+      - uses: actions/checkout@v5
 
       - name: Fetch fixtures and standings
         run: python3 scripts/fetch_data.py
