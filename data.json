@@ -11,9 +11,9 @@
    "city": "Hopkinton",
    "lat": 42.249665,
    "lng": -71.563378,
-   "us": null,
-   "them": null,
-   "final": false,
+   "us": 6,
+   "them": 0,
+   "final": true,
    "postponed": false
   },
   {
@@ -163,6 +163,17 @@
  ],
  "table": [
   {
+   "id": 30071,
+   "club": "Boston Villa FC",
+   "gp": 1,
+   "w": 1,
+   "d": 0,
+   "l": 0,
+   "gf": 6,
+   "ga": 0,
+   "pts": 3
+  },
+  {
    "id": 30067,
    "club": "Arlington PondDawgz 62",
    "gp": 1,
@@ -196,28 +207,6 @@
    "pts": 3
   },
   {
-   "id": 30071,
-   "club": "Boston Villa FC",
-   "gp": 0,
-   "w": 0,
-   "d": 0,
-   "l": 0,
-   "gf": 0,
-   "ga": 0,
-   "pts": 0
-  },
-  {
-   "id": 30070,
-   "club": "Hopkinton OF",
-   "gp": 0,
-   "w": 0,
-   "d": 0,
-   "l": 0,
-   "gf": 0,
-   "ga": 0,
-   "pts": 0
-  },
-  {
    "id": 30066,
    "club": "Lynnfield F.C. Olympians",
    "gp": 1,
@@ -249,7 +238,18 @@
    "gf": 3,
    "ga": 4,
    "pts": 0
+  },
+  {
+   "id": 30070,
+   "club": "Hopkinton OF",
+   "gp": 1,
+   "w": 0,
+   "d": 0,
+   "l": 1,
+   "gf": 0,
+   "ga": 6,
+   "pts": 0
   }
  ],
- "updated": "30 August 2026"
+ "updated": "31 August 2026"
 }
