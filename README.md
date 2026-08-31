@@ -29,7 +29,19 @@ Two things adapt on their own:
 The job writes only `data.json`, and only when the fixtures or table actually
 differ — an unchanged week produces no commit at all.
 
-Run it by hand any time from the repo's Actions tab, or with `gh workflow run refresh.yml`.
+### Refreshing it by hand
+
+GitHub treats scheduled workflows as best-effort and drops most firings on free
+public repos — in practice this runs every few hours, not every hour. That's
+usually fine, since referees take a day or two to file. When you already know a
+score has been posted and want the page to catch up now:
+
+**https://github.com/michaelhopkins/boston-villa/actions/workflows/refresh.yml**
+→ *Run workflow* → *Run workflow*
+
+Takes about twenty seconds, then another thirty for Pages to redeploy. Worth
+bookmarking on your phone alongside the page itself. From a terminal it's
+`gh workflow run refresh.yml`.
 
 ### Endpoints
 
