@@ -163,17 +163,6 @@
  ],
  "table": [
   {
-   "id": 30071,
-   "club": "Boston Villa FC",
-   "gp": 1,
-   "w": 1,
-   "d": 0,
-   "l": 0,
-   "gf": 6,
-   "ga": 0,
-   "pts": 3
-  },
-  {
    "id": 30067,
    "club": "Arlington PondDawgz 62",
    "gp": 1,
@@ -181,6 +170,17 @@
    "d": 0,
    "l": 0,
    "gf": 2,
+   "ga": 0,
+   "pts": 3
+  },
+  {
+   "id": 30071,
+   "club": "Boston Villa FC",
+   "gp": 1,
+   "w": 1,
+   "d": 0,
+   "l": 0,
+   "gf": 6,
    "ga": 0,
    "pts": 3
   },
@@ -251,5 +251,5 @@
    "pts": 0
   }
  ],
- "updated": "31 August 2026"
+ "updated": "02 September 2026"
 }
