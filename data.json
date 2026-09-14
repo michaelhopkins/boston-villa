@@ -207,6 +207,17 @@
    "pts": 3
   },
   {
+   "id": 30069,
+   "club": "Nashoba Apple Corps",
+   "gp": 2,
+   "w": 1,
+   "d": 0,
+   "l": 1,
+   "gf": 3,
+   "ga": 2,
+   "pts": 3
+  },
+  {
    "id": 30066,
    "club": "Lynnfield F.C. Olympians",
    "gp": 1,
@@ -214,17 +225,6 @@
    "d": 0,
    "l": 1,
    "gf": 0,
-   "ga": 2,
-   "pts": 0
-  },
-  {
-   "id": 30069,
-   "club": "Nashoba Apple Corps",
-   "gp": 1,
-   "w": 0,
-   "d": 0,
-   "l": 1,
-   "gf": 1,
    "ga": 2,
    "pts": 0
   },
@@ -242,14 +242,14 @@
   {
    "id": 30070,
    "club": "Hopkinton OF",
-   "gp": 1,
+   "gp": 2,
    "w": 0,
    "d": 0,
-   "l": 1,
+   "l": 2,
    "gf": 0,
-   "ga": 6,
+   "ga": 8,
    "pts": 0
   }
  ],
- "updated": "02 September 2026"
+ "updated": "14 September 2026"
 }
