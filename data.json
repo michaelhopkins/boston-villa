@@ -218,25 +218,25 @@
    "pts": 3
   },
   {
-   "id": 30066,
-   "club": "Lynnfield F.C. Olympians",
-   "gp": 1,
-   "w": 0,
-   "d": 0,
-   "l": 1,
-   "gf": 0,
-   "ga": 2,
-   "pts": 0
-  },
-  {
    "id": 30065,
    "club": "Danvers EFC",
-   "gp": 1,
-   "w": 0,
+   "gp": 2,
+   "w": 1,
    "d": 0,
    "l": 1,
+   "gf": 8,
+   "ga": 7,
+   "pts": 3
+  },
+  {
+   "id": 30066,
+   "club": "Lynnfield F.C. Olympians",
+   "gp": 2,
+   "w": 0,
+   "d": 0,
+   "l": 2,
    "gf": 3,
-   "ga": 4,
+   "ga": 7,
    "pts": 0
   },
   {
