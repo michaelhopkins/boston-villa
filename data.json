@@ -27,9 +27,9 @@
    "city": "Newton",
    "lat": 42.313523,
    "lng": -71.186542,
-   "us": null,
-   "them": null,
-   "final": false,
+   "us": 4,
+   "them": 1,
+   "final": true,
    "postponed": false
   },
   {
@@ -165,24 +165,13 @@
   {
    "id": 30071,
    "club": "Boston Villa FC",
-   "gp": 1,
-   "w": 1,
+   "gp": 2,
+   "w": 2,
    "d": 0,
    "l": 0,
-   "gf": 6,
-   "ga": 0,
-   "pts": 3
-  },
-  {
-   "id": 30068,
-   "club": "Medway",
-   "gp": 1,
-   "w": 1,
-   "d": 0,
-   "l": 0,
-   "gf": 2,
+   "gf": 10,
    "ga": 1,
-   "pts": 3
+   "pts": 6
   },
   {
    "id": 30067,
@@ -205,6 +194,17 @@
    "gf": 5,
    "ga": 4,
    "pts": 4
+  },
+  {
+   "id": 30068,
+   "club": "Medway",
+   "gp": 2,
+   "w": 1,
+   "d": 0,
+   "l": 1,
+   "gf": 3,
+   "ga": 5,
+   "pts": 3
   },
   {
    "id": 30069,
@@ -251,5 +251,5 @@
    "pts": 0
   }
  ],
- "updated": "14 September 2026"
+ "updated": "15 September 2026"
 }
