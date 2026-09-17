@@ -237,17 +237,48 @@
     text-align:right;padding:.7rem .5rem;border-bottom:1px solid var(--line-strong);
     background:var(--surface-sunk);white-space:nowrap;
   }
-  thead th.club,thead th.pos{text-align:left}
+  thead th.club{text-align:left}
   tbody td{padding:.6rem .5rem;text-align:right;border-bottom:1px solid var(--line);font-size:.9375rem}
   tbody tr:last-child td{border-bottom:0}
-  td.pos{text-align:left;color:var(--ink-faint);font-family:"Barlow Condensed",sans-serif;
-         font-weight:600;font-size:1rem;width:2.5rem;padding-left:.75rem}
-  td.club{text-align:left;font-family:"Barlow Condensed",sans-serif;font-weight:600;
-          font-size:1.0625rem;white-space:nowrap}
+
+  /* The club column stays put while the figures scroll under it, so a row on a
+     phone never loses its name. A sticky cell has no row background of its own,
+     hence the explicit fills — including one for our own tinted row. */
+  th.club,td.club{
+    position:sticky;left:0;z-index:1;
+    text-align:left;font-family:"Barlow Condensed",sans-serif;font-weight:600;
+    font-size:1.0625rem;white-space:nowrap;padding-left:.7rem;
+    background:var(--surface);
+    box-shadow:1px 0 0 var(--line);
+  }
+  th.club{z-index:2;background:var(--surface-sunk);box-shadow:1px 0 0 var(--line-strong)}
+  tr.us td.club{background:var(--cobalt-wash);color:var(--cobalt-ink)}
+
+  td.club .pos{
+    display:inline-block;min-width:1.15rem;margin-right:.45rem;
+    color:var(--ink-faint);font-weight:600;text-align:right;
+  }
+  tr.us td.club .pos{color:var(--cobalt-ink)}
+
   td.pts{font-weight:600;color:var(--ink)}
+  /* Card points only matter when there are some. */
+  td.cp{color:var(--ink-faint)}
+  td.cp.has-cards{color:var(--orange);font-weight:600}
   tr.us{background:var(--cobalt-wash)}
-  tr.us td.club{color:var(--cobalt-ink)}
   tr.cutoff td{border-bottom:2px solid var(--orange)}
+
+  /* On a phone the pinned column would otherwise take two thirds of the width,
+     since the longest club name sets it. Smaller type keeps every name whole on
+     one line in less room than wrapping needed, and leaves rows a uniform
+     height — no abbreviations, nothing to decode. PTS and CP stay in view; the
+     goal columns are a short scroll under the pinned names. */
+  @media(max-width:44rem){
+    table{min-width:25rem}
+    th.club,td.club{font-size:.85rem;padding-left:.45rem}
+    thead th{padding:.55rem .3rem;font-size:.7rem}
+    tbody td{padding:.5rem .3rem;font-size:.85rem}
+    td.club .pos{min-width:.9rem;margin-right:.3rem}
+  }
 
   .legend{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;margin-top:.7rem;font-size:.875rem;color:var(--ink-soft)}
   .legend span{display:inline-flex;align-items:center;gap:.4rem}
@@ -318,16 +349,16 @@
       <table>
         <thead>
           <tr>
-            <th class="pos" scope="col">#</th>
             <th class="club" scope="col">Club</th>
             <th scope="col" title="Games played">GP</th>
-            <th scope="col">W</th>
-            <th scope="col">D</th>
-            <th scope="col">L</th>
+            <th scope="col" title="Won">W</th>
+            <th scope="col" title="Lost">L</th>
+            <th scope="col" title="Tied">T</th>
+            <th scope="col" title="Points">PTS</th>
+            <th scope="col" title="Card points — a tie-break, and fewer is better">CP</th>
             <th scope="col" title="Goals for">GF</th>
             <th scope="col" title="Goals against">GA</th>
             <th scope="col" title="Goal difference">GD</th>
-            <th scope="col">Pts</th>
           </tr>
         </thead>
         <tbody id="table-body"></tbody>
@@ -551,33 +582,31 @@
   }
 
   // ---------- table ----------
-  var seasonStarted = TABLE.some(function(t){ return t.gp > 0; });
+  // Rendered in the order the feed gives, which is the league's own. Sorting on
+  // points then goal difference put Danvers 4th where the league says Medway:
+  // whatever breaks a tie on equal points isn't in the data we get. See
+  // build_table in scripts/fetch_data.py.
   var tb = document.getElementById("table-body");
 
-  TABLE.forEach(function(t){ t.gd = t.gf - t.ga; });
-
-  // Before a ball is kicked the feed's own order is all there is; after that,
-  // sort the way a league table actually sorts.
-  var rows = TABLE.slice();
-  if(seasonStarted){
-    rows.sort(function(a,b){
-      return b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || a.club.localeCompare(b.club);
-    });
-  }
-
-  rows.forEach(function(t, i){
+  TABLE.forEach(function(t, i){
+    var gd = t.gf - t.ga;
     var tr = el("tr", (t.club === US ? "us" : "") + (i === PLAYOFF_SPOTS - 1 ? " cutoff" : ""));
-    tr.appendChild(el("td", "pos", String(i + 1)));
 
+    // Position rides along with the club name, so the one pinned column carries
+    // both and the table loses a column's worth of width on a phone.
     var club = el("td", "club");
+    club.appendChild(el("span", "pos", String(t.place != null ? t.place : i + 1)));
     club.appendChild(teamLink(t.id, t.club, "club-link"));
     tr.appendChild(club);
 
-    [t.gp, t.w, t.d, t.l, t.gf, t.ga].forEach(function(v){
+    [t.gp, t.w, t.l, t.t].forEach(function(v){
       tr.appendChild(el("td", null, String(v)));
     });
-    tr.appendChild(el("td", null, (t.gd > 0 ? "+" : "") + t.gd));
     tr.appendChild(el("td", "pts", String(t.pts)));
+    tr.appendChild(el("td", "cp" + (t.cp > 0 ? " has-cards" : ""), String(t.cp)));
+    tr.appendChild(el("td", null, String(t.gf)));
+    tr.appendChild(el("td", null, String(t.ga)));
+    tr.appendChild(el("td", null, (gd > 0 ? "+" : "") + gd));
     tb.appendChild(tr);
   });
 

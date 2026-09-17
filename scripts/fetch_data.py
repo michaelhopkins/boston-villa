@@ -71,17 +71,26 @@ def build_games(raw):
 
 
 def build_table(raw):
-    """League order as the feed gives it; the page re-sorts once games are played."""
+    """The league's own ordering, which is not reproducible from these fields.
+
+    On 17 Sep three clubs sat on 3 points and the league ranked them Medway,
+    Nashoba, Danvers — the reverse of goal difference, and not explained by
+    capped GD, card points, goals for or alphabetical order either. Whatever
+    rule decides that isn't in the feed, so `place` is the only trustworthy
+    order and the page renders these rows exactly as they arrive.
+    """
     return [{
+        "place": r.get("place"),
         "id": r.get("team_id"),
         "club": r.get("team_name") or "",
         "gp": r.get("games_played") or 0,
         "w": r.get("wins") or 0,
-        "d": r.get("ties") or 0,
         "l": r.get("losses") or 0,
+        "t": r.get("ties") or 0,
+        "pts": r.get("points") or 0,
+        "cp": r.get("card_points") or 0,
         "gf": r.get("goals_for") or 0,
         "ga": r.get("goals_against") or 0,
-        "pts": r.get("points") or 0,
     } for r in sorted(raw, key=lambda r: r.get("place") or 0)]
 
 
