@@ -237,28 +237,30 @@
     text-align:right;padding:.7rem .5rem;border-bottom:1px solid var(--line-strong);
     background:var(--surface-sunk);white-space:nowrap;
   }
-  thead th.club{text-align:left}
+  thead th.club,thead th.pos{text-align:left}
   tbody td{padding:.6rem .5rem;text-align:right;border-bottom:1px solid var(--line);font-size:.9375rem}
   tbody tr:last-child td{border-bottom:0}
 
-  /* The club column stays put while the figures scroll under it, so a row on a
-     phone never loses its name. A sticky cell has no row background of its own,
-     hence the explicit fills — including one for our own tinted row. */
+  td.pos,th.pos{
+    text-align:left;color:var(--ink-faint);font-family:"Barlow Condensed",sans-serif;
+    font-weight:600;font-size:1rem;width:2.4rem;padding-left:.75rem;
+  }
+  tr.us td.pos{color:var(--cobalt-ink)}
+
+  /* The club column is pinned to the left edge of the scroller, so a row on a
+     phone never loses its name. Being the second column, the position slides
+     underneath it as you scroll — hence the z-index, and the explicit
+     backgrounds: a sticky cell has no row fill of its own, and without one the
+     numbers would show through. */
   th.club,td.club{
     position:sticky;left:0;z-index:1;
     text-align:left;font-family:"Barlow Condensed",sans-serif;font-weight:600;
-    font-size:1.0625rem;white-space:nowrap;padding-left:.7rem;
+    font-size:1.0625rem;white-space:nowrap;padding-left:.1rem;padding-right:.6rem;
     background:var(--surface);
     box-shadow:1px 0 0 var(--line);
   }
   th.club{z-index:2;background:var(--surface-sunk);box-shadow:1px 0 0 var(--line-strong)}
   tr.us td.club{background:var(--cobalt-wash);color:var(--cobalt-ink)}
-
-  td.club .pos{
-    display:inline-block;min-width:1.15rem;margin-right:.45rem;
-    color:var(--ink-faint);font-weight:600;text-align:right;
-  }
-  tr.us td.club .pos{color:var(--cobalt-ink)}
 
   td.pts{font-weight:600;color:var(--ink)}
   /* Card points only matter when there are some. */
@@ -272,12 +274,16 @@
      one line in less room than wrapping needed, and leaves rows a uniform
      height — no abbreviations, nothing to decode. PTS and CP stay in view; the
      goal columns are a short scroll under the pinned names. */
+  .nm-short{display:none}
+
   @media(max-width:44rem){
-    table{min-width:25rem}
-    th.club,td.club{font-size:.85rem;padding-left:.45rem}
+    table{min-width:0}
+    .nm-full{display:none}
+    .nm-short{display:inline}
+    th.club,td.club{font-size:.9375rem;padding-left:.1rem;padding-right:.5rem}
     thead th{padding:.55rem .3rem;font-size:.7rem}
-    tbody td{padding:.5rem .3rem;font-size:.85rem}
-    td.club .pos{min-width:.9rem;margin-right:.3rem}
+    tbody td{padding:.5rem .3rem;font-size:.875rem}
+    td.pos,th.pos{width:1.9rem;padding-left:.5rem}
   }
 
   .legend{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;margin-top:.7rem;font-size:.875rem;color:var(--ink-soft)}
@@ -349,6 +355,7 @@
       <table>
         <thead>
           <tr>
+            <th class="pos" scope="col">#</th>
             <th class="club" scope="col">Club</th>
             <th scope="col" title="Games played">GP</th>
             <th scope="col" title="Won">W</th>
@@ -394,6 +401,21 @@
   var OVERRIDES = {};
 
   var PLAYOFF_SPOTS = 4;
+
+  // On a phone the full names set the club column to half the table's width.
+  // These are what people call each club anyway; the full name still shows on
+  // wider screens and on the link. Anything not listed falls back to its full
+  // name, so a new club is untidy rather than wrong.
+  var SHORT_NAMES = {
+    "Boston Villa FC":          "Boston Villa",
+    "Arlington PondDawgz 62":   "Arlington",
+    "Warthog Wonders":          "Warthogs",
+    "Nashoba Apple Corps":      "Nashoba",
+    "Lynnfield F.C. Olympians": "Lynnfield",
+    "Danvers EFC":              "Danvers",
+    "Hopkinton OF":             "Hopkinton",
+    "Medway":                   "Medway"
+  };
 
   // The league's own team page, so a click lands exactly where it would on their site.
   var LEAGUE_CTX = "season_id=179&bracket_id=60&division_id=152&league_id=7";
@@ -592,11 +614,15 @@
     var gd = t.gf - t.ga;
     var tr = el("tr", (t.club === US ? "us" : "") + (i === PLAYOFF_SPOTS - 1 ? " cutoff" : ""));
 
-    // Position rides along with the club name, so the one pinned column carries
-    // both and the table loses a column's worth of width on a phone.
+    tr.appendChild(el("td", "pos", String(t.place != null ? t.place : i + 1)));
+
+    // Both names are rendered and CSS picks one, so a rotation or a resize
+    // swaps them without anything having to listen for it.
+    var link = teamLink(t.id, "", "club-link");
+    link.appendChild(el("span", "nm-full", t.club));
+    link.appendChild(el("span", "nm-short", SHORT_NAMES[t.club] || t.club));
     var club = el("td", "club");
-    club.appendChild(el("span", "pos", String(t.place != null ? t.place : i + 1)));
-    club.appendChild(teamLink(t.id, t.club, "club-link"));
+    club.appendChild(link);
     tr.appendChild(club);
 
     [t.gp, t.w, t.l, t.t].forEach(function(v){
