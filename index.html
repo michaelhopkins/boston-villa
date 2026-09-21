@@ -434,14 +434,57 @@
   }
   var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
+  // An absolute instant — only for "has this finished yet", which is the same
+  // moment everywhere on earth.
   function d(g){ return new Date(g.iso); }
-  function koText(g){
-    var t = d(g), h = t.getHours(), m = t.getMinutes();
-    var ap = h >= 12 ? "PM" : "AM", hh = h % 12; if(hh === 0) hh = 12;
-    return hh + ":" + (m < 10 ? "0" + m : m) + " " + ap;
+
+  // Everything shown to a reader uses the clock at the ground instead.
+  //
+  // The league publishes each kick-off with its own offset, e.g.
+  // "2026-08-30T10:00:00-04:00". Those wall-clock fields are the time in
+  // Massachusetts, and that is the time that matters: a 10:00 kick-off in
+  // Newton is still a 10:00 kick-off when you read this from London. Handing
+  // the string to Date and asking for getHours() converts it into wherever the
+  // reader happens to be standing, which showed 15:00 from the UK and tripped
+  // the "later than usual" flag on every single fixture.
+  //
+  // Read the fields straight out of the string. No timezone database needed,
+  // and it honours whatever offset the league actually published.
+  function wall(g){
+    var m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(g.iso || "");
+    if(!m){                                   // shouldn't happen; degrade quietly
+      var t = d(g);
+      return {y:t.getFullYear(), mo:t.getMonth()+1, day:t.getDate(),
+              h:t.getHours(), mi:t.getMinutes()};
+    }
+    return {y:+m[1], mo:+m[2], day:+m[3], h:+m[4], mi:+m[5]};
   }
-  function isStandardKO(g){ var t = d(g); return t.getHours() === 10 && t.getMinutes() === 0; }
-  function isEarly(g){ var t = d(g); return t.getHours() < 10; }
+  // Weekday of a calendar date, computed in UTC so no local offset can shift it.
+  function weekdayOf(w){ return new Date(Date.UTC(w.y, w.mo - 1, w.day)).getUTCDay(); }
+
+  function koText(g){
+    var w = wall(g), ap = w.h >= 12 ? "PM" : "AM", hh = w.h % 12;
+    if(hh === 0) hh = 12;
+    return hh + ":" + (w.mi < 10 ? "0" + w.mi : w.mi) + " " + ap;
+  }
+  function isStandardKO(g){ var w = wall(g); return w.h === 10 && w.mi === 0; }
+  function isEarly(g){ return wall(g).h < 10; }
+
+  // "Today" has to mean today at the ground too, or a reader five hours ahead
+  // gets the countdown off by a day.
+  function todayAtGround(){
+    try{
+      var s = new Intl.DateTimeFormat("en-CA", {timeZone:"America/New_York",
+              year:"numeric", month:"2-digit", day:"2-digit"}).format(new Date());
+      var m = /(\d{4})-(\d{2})-(\d{2})/.exec(s);
+      if(m) return {y:+m[1], mo:+m[2], day:+m[3]};
+    }catch(e){ /* no Intl or no tz data — fall back to the reader's own date */ }
+    var n = new Date();
+    return {y:n.getFullYear(), mo:n.getMonth()+1, day:n.getDate()};
+  }
+  function daysBetween(a, b){
+    return Math.round((Date.UTC(b.y, b.mo - 1, b.day) - Date.UTC(a.y, a.mo - 1, a.day)) / 864e5);
+  }
 
   // A game counts as "on" until roughly full time — ninety minutes, a half-time
   // and a bit of slack. Long enough that the card doesn't move on while everyone
@@ -505,8 +548,9 @@
     var row = el("div", "fx" + (g.home ? " is-home" : "") + (done ? " played" : ""));
 
     var date = el("div", "fx-date");
-    date.appendChild(el("span", "d", String(d(g).getDate())));
-    date.appendChild(el("span", "m", MONTHS[d(g).getMonth()]));
+    var w = wall(g);
+    date.appendChild(el("span", "d", String(w.day)));
+    date.appendChild(el("span", "m", MONTHS[w.mo - 1]));
     row.appendChild(date);
 
     var opp = el("div", "fx-opp");
@@ -558,7 +602,7 @@
   if(!next){
     document.getElementById("next-match").remove();
   } else {
-  var nd = d(next);
+  var nw = wall(next);
 
   document.getElementById("next-vs").textContent = next.home ? "at home to" : "away to";
   document.getElementById("next-opp").appendChild(teamLink(IDS[next.opp], next.opp, "club-link"));
@@ -569,7 +613,7 @@
   var when = document.getElementById("next-when");
   var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
   when.appendChild(document.createTextNode(
-    days[nd.getDay()] + ", " + MONTHS[nd.getMonth()] + " " + nd.getDate() + " — "
+    days[weekdayOf(nw)] + ", " + MONTHS[nw.mo - 1] + " " + nw.day + " — "
   ));
   when.appendChild(el("span", "ko", koText(next)));
   if(!isStandardKO(next)){
@@ -577,10 +621,7 @@
     when.appendChild(el("span", "chip chip-early", isEarly(next) ? "Earlier than usual" : "Later than usual"));
   }
 
-  var dayMs = 864e5;
-  var midnightToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  var midnightGame = new Date(nd.getFullYear(), nd.getMonth(), nd.getDate());
-  var delta = Math.round((midnightGame - midnightToday) / dayMs);
+  var delta = daysBetween(todayAtGround(), nw);
   document.getElementById("next-count").textContent =
     delta > 1 ? "in " + delta + " days" : delta === 1 ? "tomorrow" : delta === 0 ? "today" : "";
 
