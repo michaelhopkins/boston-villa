@@ -229,29 +229,29 @@
   },
   {
    "place": 6,
-   "id": 30069,
-   "club": "Nashoba Apple Corps",
-   "gp": 3,
+   "id": 30066,
+   "club": "Lynnfield F.C. Olympians",
+   "gp": 4,
    "w": 1,
-   "l": 2,
+   "l": 3,
    "t": 0,
    "pts": 3,
-   "cp": 0,
-   "gf": 3,
-   "ga": 5
+   "cp": 1,
+   "gf": 6,
+   "ga": 9
   },
   {
    "place": 7,
-   "id": 30066,
-   "club": "Lynnfield F.C. Olympians",
-   "gp": 3,
-   "w": 0,
+   "id": 30069,
+   "club": "Nashoba Apple Corps",
+   "gp": 4,
+   "w": 1,
    "l": 3,
    "t": 0,
-   "pts": 0,
+   "pts": 3,
    "cp": 1,
    "gf": 3,
-   "ga": 9
+   "ga": 8
   },
   {
    "place": 8,
@@ -267,5 +267,5 @@
    "ga": 14
   }
  ],
- "updated": "27 September 2026"
+ "updated": "29 September 2026"
 }
