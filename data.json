@@ -192,11 +192,11 @@
    "place": 3,
    "id": 30068,
    "club": "Medway",
-   "gp": 3,
+   "gp": 4,
    "w": 2,
    "l": 1,
-   "t": 0,
-   "pts": 6,
+   "t": 1,
+   "pts": 7,
    "cp": 2,
    "gf": 7,
    "ga": 5
@@ -218,11 +218,11 @@
    "place": 5,
    "id": 30067,
    "club": "Arlington PondDawgz 62",
-   "gp": 3,
+   "gp": 4,
    "w": 1,
    "l": 0,
-   "t": 2,
-   "pts": 5,
+   "t": 3,
+   "pts": 6,
    "cp": 1,
    "gf": 4,
    "ga": 2
@@ -267,5 +267,5 @@
    "ga": 14
   }
  ],
- "updated": "29 September 2026"
+ "updated": "30 September 2026"
 }
