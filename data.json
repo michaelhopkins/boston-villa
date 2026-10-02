@@ -62,7 +62,7 @@
    "us": null,
    "them": null,
    "final": false,
-   "postponed": false
+   "postponed": true
   },
   {
    "date": "2026-10-04",
@@ -267,5 +267,5 @@
    "ga": 14
   }
  ],
- "updated": "30 September 2026"
+ "updated": "02 October 2026"
 }
