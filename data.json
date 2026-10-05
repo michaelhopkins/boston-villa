@@ -75,8 +75,8 @@
    "city": "Newton",
    "lat": 42.313523,
    "lng": -71.186542,
-   "us": null,
-   "them": null,
+   "us": 0,
+   "them": 1,
    "final": false,
    "postponed": false
   },
@@ -164,19 +164,6 @@
  "table": [
   {
    "place": 1,
-   "id": 30071,
-   "club": "Boston Villa FC",
-   "gp": 3,
-   "w": 3,
-   "l": 0,
-   "t": 0,
-   "pts": 9,
-   "cp": 3,
-   "gf": 13,
-   "ga": 1
-  },
-  {
-   "place": 2,
    "id": 30064,
    "club": "Warthog Wonders",
    "gp": 3,
@@ -189,7 +176,33 @@
    "ga": 4
   },
   {
+   "place": 2,
+   "id": 30071,
+   "club": "Boston Villa FC",
+   "gp": 4,
+   "w": 3,
+   "l": 1,
+   "t": 0,
+   "pts": 9,
+   "cp": 3,
+   "gf": 13,
+   "ga": 2
+  },
+  {
    "place": 3,
+   "id": 30065,
+   "club": "Danvers EFC",
+   "gp": 5,
+   "w": 3,
+   "l": 1,
+   "t": 1,
+   "pts": 10,
+   "cp": 1,
+   "gf": 12,
+   "ga": 8
+  },
+  {
+   "place": 4,
    "id": 30068,
    "club": "Medway",
    "gp": 4,
@@ -200,19 +213,6 @@
    "cp": 2,
    "gf": 7,
    "ga": 5
-  },
-  {
-   "place": 4,
-   "id": 30065,
-   "club": "Danvers EFC",
-   "gp": 4,
-   "w": 2,
-   "l": 1,
-   "t": 1,
-   "pts": 7,
-   "cp": 1,
-   "gf": 11,
-   "ga": 8
   },
   {
    "place": 5,
@@ -267,5 +267,5 @@
    "ga": 14
   }
  ],
- "updated": "02 October 2026"
+ "updated": "05 October 2026"
 }
