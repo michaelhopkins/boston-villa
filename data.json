@@ -77,7 +77,7 @@
    "lng": -71.186542,
    "us": 0,
    "them": 1,
-   "final": false,
+   "final": true,
    "postponed": false
   },
   {
@@ -166,14 +166,14 @@
    "place": 1,
    "id": 30064,
    "club": "Warthog Wonders",
-   "gp": 3,
-   "w": 2,
+   "gp": 4,
+   "w": 3,
    "l": 0,
    "t": 1,
-   "pts": 7,
+   "pts": 10,
    "cp": 0,
-   "gf": 7,
-   "ga": 4
+   "gf": 11,
+   "ga": 6
   },
   {
    "place": 2,
@@ -197,7 +197,7 @@
    "l": 1,
    "t": 1,
    "pts": 10,
-   "cp": 2,
+   "cp": 3,
    "gf": 11,
    "ga": 7
   },
@@ -223,7 +223,7 @@
    "l": 0,
    "t": 3,
    "pts": 9,
-   "cp": 1,
+   "cp": 2,
    "gf": 7,
    "ga": 4
   },
@@ -236,7 +236,7 @@
    "l": 4,
    "t": 0,
    "pts": 3,
-   "cp": 1,
+   "cp": 3,
    "gf": 8,
    "ga": 13
   },
@@ -257,15 +257,15 @@
    "place": 8,
    "id": 30070,
    "club": "Hopkinton OF",
-   "gp": 4,
+   "gp": 5,
    "w": 0,
-   "l": 4,
+   "l": 5,
    "t": 0,
    "pts": 0,
    "cp": 1,
-   "gf": 0,
-   "ga": 14
+   "gf": 2,
+   "ga": 18
   }
  ],
- "updated": "06 October 2026"
+ "updated": "08 October 2026"
 }
