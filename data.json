@@ -164,19 +164,6 @@
  "table": [
   {
    "place": 1,
-   "id": 30064,
-   "club": "Warthog Wonders",
-   "gp": 4,
-   "w": 3,
-   "l": 0,
-   "t": 1,
-   "pts": 10,
-   "cp": 0,
-   "gf": 11,
-   "ga": 6
-  },
-  {
-   "place": 2,
    "id": 30071,
    "club": "Boston Villa FC",
    "gp": 4,
@@ -187,6 +174,19 @@
    "cp": 3,
    "gf": 13,
    "ga": 2
+  },
+  {
+   "place": 2,
+   "id": 30064,
+   "club": "Warthog Wonders",
+   "gp": 5,
+   "w": 3,
+   "l": 0,
+   "t": 2,
+   "pts": 11,
+   "cp": 0,
+   "gf": 16,
+   "ga": 11
   },
   {
    "place": 3,
@@ -229,6 +229,19 @@
   },
   {
    "place": 6,
+   "id": 30069,
+   "club": "Nashoba Apple Corps",
+   "gp": 6,
+   "w": 1,
+   "l": 4,
+   "t": 1,
+   "pts": 4,
+   "cp": 1,
+   "gf": 10,
+   "ga": 16
+  },
+  {
+   "place": 7,
    "id": 30066,
    "club": "Lynnfield F.C. Olympians",
    "gp": 5,
@@ -239,19 +252,6 @@
    "cp": 3,
    "gf": 8,
    "ga": 13
-  },
-  {
-   "place": 7,
-   "id": 30069,
-   "club": "Nashoba Apple Corps",
-   "gp": 5,
-   "w": 1,
-   "l": 4,
-   "t": 0,
-   "pts": 3,
-   "cp": 1,
-   "gf": 5,
-   "ga": 11
   },
   {
    "place": 8,
@@ -267,5 +267,5 @@
    "ga": 18
   }
  ],
- "updated": "08 October 2026"
+ "updated": "11 October 2026"
 }
