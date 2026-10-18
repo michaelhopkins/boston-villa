@@ -190,6 +190,19 @@
   },
   {
    "place": 3,
+   "id": 30065,
+   "club": "Danvers EFC",
+   "gp": 7,
+   "w": 4,
+   "l": 1,
+   "t": 2,
+   "pts": 14,
+   "cp": 1,
+   "gf": 16,
+   "ga": 11
+  },
+  {
+   "place": 4,
    "id": 30068,
    "club": "Medway",
    "gp": 6,
@@ -200,19 +213,6 @@
    "cp": 3,
    "gf": 13,
    "ga": 9
-  },
-  {
-   "place": 4,
-   "id": 30065,
-   "club": "Danvers EFC",
-   "gp": 6,
-   "w": 3,
-   "l": 1,
-   "t": 2,
-   "pts": 11,
-   "cp": 1,
-   "gf": 14,
-   "ga": 10
   },
   {
    "place": 5,
@@ -231,14 +231,14 @@
    "place": 6,
    "id": 30069,
    "club": "Nashoba Apple Corps",
-   "gp": 6,
+   "gp": 7,
    "w": 1,
-   "l": 4,
+   "l": 5,
    "t": 1,
    "pts": 4,
    "cp": 1,
-   "gf": 10,
-   "ga": 16
+   "gf": 11,
+   "ga": 18
   },
   {
    "place": 7,
