@@ -177,16 +177,16 @@
   },
   {
    "place": 2,
-   "id": 30064,
-   "club": "Warthog Wonders",
-   "gp": 5,
-   "w": 3,
-   "l": 0,
+   "id": 30068,
+   "club": "Medway",
+   "gp": 7,
+   "w": 4,
+   "l": 1,
    "t": 2,
-   "pts": 11,
-   "cp": 0,
-   "gf": 16,
-   "ga": 11
+   "pts": 14,
+   "cp": 3,
+   "gf": 14,
+   "ga": 9
   },
   {
    "place": 3,
@@ -203,16 +203,16 @@
   },
   {
    "place": 4,
-   "id": 30068,
-   "club": "Medway",
+   "id": 30064,
+   "club": "Warthog Wonders",
    "gp": 6,
    "w": 3,
    "l": 1,
    "t": 2,
    "pts": 11,
-   "cp": 3,
-   "gf": 13,
-   "ga": 9
+   "cp": 0,
+   "gf": 16,
+   "ga": 12
   },
   {
    "place": 5,
@@ -267,5 +267,5 @@
    "ga": 19
   }
  ],
- "updated": "18 October 2026"
+ "updated": "20 October 2026"
 }
