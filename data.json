@@ -242,30 +242,30 @@
   },
   {
    "place": 7,
-   "id": 30066,
-   "club": "Lynnfield F.C. Olympians",
-   "gp": 6,
+   "id": 30070,
+   "club": "Hopkinton OF",
+   "gp": 7,
    "w": 1,
-   "l": 5,
+   "l": 6,
    "t": 0,
    "pts": 3,
-   "cp": 3,
-   "gf": 9,
-   "ga": 16
+   "cp": 5,
+   "gf": 6,
+   "ga": 20
   },
   {
    "place": 8,
-   "id": 30070,
-   "club": "Hopkinton OF",
-   "gp": 6,
-   "w": 0,
+   "id": 30066,
+   "club": "Lynnfield F.C. Olympians",
+   "gp": 7,
+   "w": 1,
    "l": 6,
    "t": 0,
-   "pts": 0,
-   "cp": 3,
-   "gf": 2,
-   "ga": 19
+   "pts": 3,
+   "cp": 5,
+   "gf": 10,
+   "ga": 20
   }
  ],
- "updated": "20 October 2026"
+ "updated": "21 October 2026"
 }
