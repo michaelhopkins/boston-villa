@@ -123,8 +123,8 @@
    "city": "Newton",
    "lat": 42.313523,
    "lng": -71.186542,
-   "us": null,
-   "them": null,
+   "us": 0,
+   "them": 2,
    "final": false,
    "postponed": false
   },
@@ -166,17 +166,30 @@
    "place": 1,
    "id": 30071,
    "club": "Boston Villa FC",
-   "gp": 6,
+   "gp": 7,
    "w": 5,
-   "l": 1,
+   "l": 2,
    "t": 0,
    "pts": 15,
    "cp": 3,
    "gf": 18,
-   "ga": 3
+   "ga": 5
   },
   {
    "place": 2,
+   "id": 30068,
+   "club": "Medway",
+   "gp": 8,
+   "w": 5,
+   "l": 1,
+   "t": 2,
+   "pts": 17,
+   "cp": 3,
+   "gf": 15,
+   "ga": 9
+  },
+  {
+   "place": 3,
    "id": 30065,
    "club": "Danvers EFC",
    "gp": 8,
@@ -187,19 +200,6 @@
    "cp": 1,
    "gf": 19,
    "ga": 12
-  },
-  {
-   "place": 3,
-   "id": 30068,
-   "club": "Medway",
-   "gp": 7,
-   "w": 4,
-   "l": 1,
-   "t": 2,
-   "pts": 14,
-   "cp": 3,
-   "gf": 14,
-   "ga": 9
   },
   {
    "place": 4,
@@ -231,30 +231,17 @@
    "place": 6,
    "id": 30069,
    "club": "Nashoba Apple Corps",
-   "gp": 7,
-   "w": 1,
+   "gp": 8,
+   "w": 2,
    "l": 5,
    "t": 1,
-   "pts": 4,
+   "pts": 7,
    "cp": 1,
-   "gf": 11,
+   "gf": 13,
    "ga": 18
   },
   {
    "place": 7,
-   "id": 30070,
-   "club": "Hopkinton OF",
-   "gp": 7,
-   "w": 1,
-   "l": 6,
-   "t": 0,
-   "pts": 3,
-   "cp": 5,
-   "gf": 6,
-   "ga": 20
-  },
-  {
-   "place": 8,
    "id": 30066,
    "club": "Lynnfield F.C. Olympians",
    "gp": 7,
@@ -265,6 +252,19 @@
    "cp": 5,
    "gf": 10,
    "ga": 20
+  },
+  {
+   "place": 8,
+   "id": 30070,
+   "club": "Hopkinton OF",
+   "gp": 8,
+   "w": 1,
+   "l": 7,
+   "t": 0,
+   "pts": 3,
+   "cp": 5,
+   "gf": 6,
+   "ga": 21
   }
  ],
  "updated": "25 October 2026"
