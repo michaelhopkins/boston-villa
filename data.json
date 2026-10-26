@@ -125,7 +125,7 @@
    "lng": -71.186542,
    "us": 0,
    "them": 2,
-   "final": false,
+   "final": true,
    "postponed": false
   },
   {
@@ -171,7 +171,7 @@
    "l": 2,
    "t": 0,
    "pts": 15,
-   "cp": 3,
+   "cp": 4,
    "gf": 18,
    "ga": 5
   },
@@ -262,10 +262,10 @@
    "l": 7,
    "t": 0,
    "pts": 3,
-   "cp": 5,
+   "cp": 7,
    "gf": 6,
    "ga": 21
   }
  ],
- "updated": "25 October 2026"
+ "updated": "26 October 2026"
 }
