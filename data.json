@@ -164,6 +164,19 @@
  "table": [
   {
    "place": 1,
+   "id": 30065,
+   "club": "Danvers EFC",
+   "gp": 9,
+   "w": 6,
+   "l": 1,
+   "t": 2,
+   "pts": 20,
+   "cp": 1,
+   "gf": 23,
+   "ga": 15
+  },
+  {
+   "place": 2,
    "id": 30071,
    "club": "Boston Villa FC",
    "gp": 7,
@@ -176,43 +189,30 @@
    "ga": 5
   },
   {
-   "place": 2,
+   "place": 3,
    "id": 30068,
    "club": "Medway",
-   "gp": 8,
+   "gp": 9,
    "w": 5,
-   "l": 1,
+   "l": 2,
    "t": 2,
    "pts": 17,
    "cp": 3,
-   "gf": 15,
-   "ga": 9
-  },
-  {
-   "place": 3,
-   "id": 30065,
-   "club": "Danvers EFC",
-   "gp": 8,
-   "w": 5,
-   "l": 1,
-   "t": 2,
-   "pts": 17,
-   "cp": 1,
-   "gf": 19,
+   "gf": 16,
    "ga": 12
   },
   {
    "place": 4,
    "id": 30064,
    "club": "Warthog Wonders",
-   "gp": 7,
+   "gp": 8,
    "w": 4,
-   "l": 1,
+   "l": 2,
    "t": 2,
    "pts": 14,
    "cp": 0,
-   "gf": 20,
-   "ga": 14
+   "gf": 23,
+   "ga": 18
   },
   {
    "place": 5,
@@ -231,14 +231,14 @@
    "place": 6,
    "id": 30069,
    "club": "Nashoba Apple Corps",
-   "gp": 8,
-   "w": 2,
+   "gp": 9,
+   "w": 3,
    "l": 5,
    "t": 1,
-   "pts": 7,
+   "pts": 10,
    "cp": 1,
-   "gf": 13,
-   "ga": 18
+   "gf": 16,
+   "ga": 19
   },
   {
    "place": 7,
@@ -267,5 +267,5 @@
    "ga": 24
   }
  ],
- "updated": "27 October 2026"
+ "updated": "01 November 2026"
 }
