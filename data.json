@@ -212,7 +212,7 @@
    "pts": 14,
    "cp": 0,
    "gf": 23,
-   "ga": 18
+   "ga": 17
   },
   {
    "place": 5,
@@ -263,9 +263,9 @@
    "t": 0,
    "pts": 3,
    "cp": 5,
-   "gf": 12,
+   "gf": 11,
    "ga": 24
   }
  ],
- "updated": "01 November 2026"
+ "updated": "02 November 2026"
 }
