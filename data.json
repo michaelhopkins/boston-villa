@@ -155,8 +155,8 @@
    "city": "Medway",
    "lat": 42.15318,
    "lng": -71.438214,
-   "us": null,
-   "them": null,
+   "us": 0,
+   "them": 0,
    "final": false,
    "postponed": false
   }
@@ -164,19 +164,6 @@
  "table": [
   {
    "place": 1,
-   "id": 30071,
-   "club": "Boston Villa FC",
-   "gp": 8,
-   "w": 6,
-   "l": 2,
-   "t": 0,
-   "pts": 18,
-   "cp": 5,
-   "gf": 20,
-   "ga": 5
-  },
-  {
-   "place": 2,
    "id": 30065,
    "club": "Danvers EFC",
    "gp": 9,
@@ -189,14 +176,27 @@
    "ga": 15
   },
   {
+   "place": 2,
+   "id": 30071,
+   "club": "Boston Villa FC",
+   "gp": 9,
+   "w": 6,
+   "l": 2,
+   "t": 1,
+   "pts": 19,
+   "cp": 5,
+   "gf": 20,
+   "ga": 5
+  },
+  {
    "place": 3,
    "id": 30068,
    "club": "Medway",
-   "gp": 9,
+   "gp": 10,
    "w": 5,
    "l": 2,
-   "t": 2,
-   "pts": 17,
+   "t": 3,
+   "pts": 18,
    "cp": 4,
    "gf": 16,
    "ga": 12
@@ -267,5 +267,5 @@
    "ga": 27
   }
  ],
- "updated": "03 November 2026"
+ "updated": "08 November 2026"
 }
