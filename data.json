@@ -159,6 +159,22 @@
    "them": 0,
    "final": false,
    "postponed": false
+  },
+  {
+   "date": "2026-11-15",
+   "iso": "2026-11-15T10:00:00-05:00",
+   "home": true,
+   "opp": "",
+   "venue": "Newton South High School",
+   "surface": "Turf",
+   "addr": "140 Brandeis Road",
+   "city": "Newton",
+   "lat": 42.313523,
+   "lng": -71.186542,
+   "us": null,
+   "them": null,
+   "final": false,
+   "postponed": false
   }
  ],
  "table": [
@@ -205,27 +221,27 @@
    "place": 4,
    "id": 30064,
    "club": "Warthog Wonders",
-   "gp": 8,
-   "w": 4,
-   "l": 2,
-   "t": 2,
-   "pts": 14,
-   "cp": 2,
-   "gf": 24,
-   "ga": 17
-  },
-  {
-   "place": 5,
-   "id": 30067,
-   "club": "Arlington PondDawgz 62",
    "gp": 9,
    "w": 4,
    "l": 2,
    "t": 3,
    "pts": 15,
+   "cp": 2,
+   "gf": 27,
+   "ga": 20
+  },
+  {
+   "place": 5,
+   "id": 30067,
+   "club": "Arlington PondDawgz 62",
+   "gp": 10,
+   "w": 4,
+   "l": 2,
+   "t": 4,
+   "pts": 16,
    "cp": 5,
-   "gf": 11,
-   "ga": 9
+   "gf": 14,
+   "ga": 12
   },
   {
    "place": 6,
@@ -267,5 +283,5 @@
    "ga": 27
   }
  ],
- "updated": "08 November 2026"
+ "updated": "10 November 2026"
 }
